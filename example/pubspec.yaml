@@ -12,7 +12,9 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+#  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: '>=2.18.2 <3.0.0'
+androidX: true
 
 dependencies:
   flutter:

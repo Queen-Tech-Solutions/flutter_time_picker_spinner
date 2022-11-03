@@ -5,7 +5,8 @@ author: Bobby Stenly<iceman.bsi@gmail.com>
 homepage: https://github.com/icemanbsi/flutter_time_picker_spinner
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.18.2 <3.0.0'
+androidX: true
 
 dependencies:
   flutter:

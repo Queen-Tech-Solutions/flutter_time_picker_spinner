@@ -1,7 +1,8 @@
 library time_picker_spinner;
 
-import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
 
 class ItemScrollPhysics extends ScrollPhysics {
   /// Creates physics for snapping to item.
@@ -218,7 +219,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
     super.initState();
 
     if (widget.onTimeChange != null) {
-      WidgetsBinding.instance!
+      WidgetsBinding.instance
           .addPostFrameCallback((_) => widget.onTimeChange!(getDateTime()));
     }
   }
@@ -350,8 +351,9 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
         }
         return true;
       },
-      child: ListView.builder(
-        itemBuilder: (context, index) {
+      child: ListWheelScrollView(
+        itemExtent: _getItemHeight()!,
+        children: List.generate(isLoop(max) ? max * 3 : max + 2, (index) {
           String text = '';
           if (isLoop(max)) {
             text = ((index % max) * interval).toString();
@@ -376,25 +378,72 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
                   : _getNormalTextStyle(),
             ),
           );
-        },
+        }).toList(),
         controller: controller,
-        itemCount: isLoop(max) ? max * 3 : max + 2,
         physics: ItemScrollPhysics(itemHeight: _getItemHeight()),
-        padding: EdgeInsets.zero,
       ),
+      // child: ListView.builder(
+      //   itemBuilder: (context, index) {
+      //     String text = '';
+      //     if (isLoop(max)) {
+      //       text = ((index % max) * interval).toString();
+      //     } else if (index != 0 && index != max + 1) {
+      //       text = (((index - 1) % max) * interval).toString();
+      //     }
+      //     if (!widget.is24HourMode &&
+      //         controller == hourController &&
+      //         text == '0') {
+      //       text = '12';
+      //     }
+      //     if (widget.isForce2Digits && text != '') {
+      //       text = text.padLeft(2, '0');
+      //     }
+      //     return Container(
+      //       height: _getItemHeight(),
+      //       alignment: _getAlignment(),
+      //       child: Text(
+      //         text,
+      //         style: selectedIndex == index
+      //             ? _getHighlightedTextStyle()
+      //             : _getNormalTextStyle(),
+      //       ),
+      //     );
+      //   },
+      //   shrinkWrap: true,
+      //   controller: controller,
+      //   itemCount: isLoop(max) ? max * 3 : max + 2,
+      //   physics: ItemScrollPhysics(itemHeight: _getItemHeight()),
+      //   padding: EdgeInsets.zero,
+      // ),
     );
 
-    return Stack(
-      children: <Widget>[
-        Positioned.fill(child: _spinner),
-        isScrolling
-            ? Positioned.fill(
-                child: Container(
-                color: Colors.black.withOpacity(0),
-              ))
-            : Container()
-      ],
-    );
+    // return Stack(
+    //   children: <Widget>[
+    //     Positioned.fill(child: Column(
+    //       children: [
+    //         Container(
+    //           height: getWidgetHeight(1),
+    //           width: getWidgetWidth(223),
+    //           decoration: BoxDecoration(
+    //               color: AppConstants.lightMainBGColor,
+    //               borderRadius:
+    //               BorderRadius.circular(AppConstants.containerRadius)),
+    //         ),
+    //         SizedBox(height: MediaQuery.of(context).size.height * 0.16),
+    //         _spinner,
+    //       ],
+    //     ),
+    //     ),
+    //     isScrolling
+    //         ? Positioned.fill(
+    //             child: Container(
+    //             color: Colors.black.withOpacity(0),
+    //           ))
+    //         : Container()
+    //   ],
+    // );
+
+    return _spinner;
   }
 
   Widget apSpinner() {
