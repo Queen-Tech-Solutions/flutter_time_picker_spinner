@@ -228,23 +228,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
   Widget build(BuildContext context) {
     // print(minuteController.offset);
     List<Widget> contents = [
-      SizedBox(
-        width: _getItemWidth(),
-        height: _getItemHeight()! * 3,
-        child: spinner(
-          hourController,
-          _getHourCount(),
-          currentSelectedHourIndex,
-          isHourScrolling,
-          1,
-          (index) {
-            currentSelectedHourIndex = index;
-            isHourScrolling = true;
-          },
-          () => isHourScrolling = false,
-        ),
-      ),
-      spacer(),
+      /// Minutes
       SizedBox(
         width: _getItemWidth(),
         height: _getItemHeight()! * 3,
@@ -259,6 +243,25 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             isMinuteScrolling = true;
           },
           () => isMinuteScrolling = false,
+        ),
+      ),
+      spacer(),
+
+      /// Hours
+      SizedBox(
+        width: _getItemWidth(),
+        height: _getItemHeight()! * 3,
+        child: spinner(
+          hourController,
+          _getHourCount(),
+          currentSelectedHourIndex,
+          isHourScrolling,
+          1,
+          (index) {
+            currentSelectedHourIndex = index;
+            isHourScrolling = true;
+          },
+          () => isHourScrolling = false,
         ),
       ),
     ];
